@@ -162,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -176,7 +176,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">神经网络: 神经网络的统计学基本原理</a>
+            <a href="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">神经网络：基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-31 17:16:54" itemprop="dateModified" datetime="2021-07-31T17:16:54+08:00">2021-07-31</time>
+                <time title="修改时间：2021-08-03 10:14:01" itemprop="dateModified" datetime="2021-08-03T10:14:01+08:00">2021-08-03</time>
               </span>
 
           
@@ -207,95 +207,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="神经网络：基本原理"><a href="#神经网络：基本原理" class="headerlink" title="神经网络：基本原理"></a>神经网络：基本原理</h1><p>此篇写给对神经网络感兴趣，但是还没入门的同学们。</p>
+          <p>此篇写给对神经网络感兴趣，但是还没入门的同学们。</p>
 <h3 id="1-最简单的学习"><a href="#1-最简单的学习" class="headerlink" title="1. 最简单的学习"></a>1. 最简单的学习</h3><p>我们首先来看一个我们最熟悉的“机器学习“——<strong>一元线性回归</strong></p>
-<p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png" alt="image-20210723112857334" style="zoom:67%;"></p>
-<p>通过给定的一系列<strong>样本点</strong>$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的<strong>预测值</strong>$\hat{y}$尽可能地接近<strong>真实值</strong>$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\hat{y}$值。这便是一种<strong>机器学习</strong>了。直线的斜率、截距便是这个机器学习模型的<strong>参数</strong>。计算直线的斜率、截距的过程便是<strong>学习</strong>的过程。</p>
-<h4 id="从一元线性回归到神经网络"><a href="#从一元线性回归到神经网络" class="headerlink" title="从一元线性回归到神经网络"></a>从一元线性回归到神经网络</h4><p><strong>稍微</strong>的将这一原理拓展一下：以自动驾驶中识别路标这一算法为例，这一模型接收一个自变量$x$（x是图片），输出一个预测值$\hat{y}$（y可以是路标的种类，比如用0代表”不是路标“，1代表”禁止停车“等），计算的过程中需要用到许多参数。在创建这一模型时，我们需要有大量的样本点$(x, y)$让这个模型来学习，不过这里的$x$是一张张地图片，而$y$则是路标的种类。通过大量的样本点和特定的算法，我们可以计算出模型中的参数，让模型的预测结果$\hat{y}$尽可能地逼近真实值$y$，这一计算的过程就是该模型<strong>学习</strong>的过程，或者说<strong>训练</strong>的过程。学习结束后，我们就可以实际运用这一模型了。</p>
-<p>对比一下这两段话，就可以看出一个复杂的机器学习模型实际上和一元线性回归的原理是相同的。</p>
-<p>因为一元线性回归过于简单，所以可以直接用公式计算出所需要的参数。但是实际的机器学习问题需要有数以万计的参数，没办法直接通过公式直接计算，只能用<strong>梯度下降算法</strong>不断<strong>逼近理想值</strong>。</p>
-<p>关于梯度下降的介绍会在后续博文中介绍。</p>
-<h3 id="2-神经网络的计算过程"><a href="#2-神经网络的计算过程" class="headerlink" title="2. 神经网络的计算过程"></a>2. 神经网络的计算过程</h3><ul>
-<li><h4 id="神经网络计算方式"><a href="#神经网络计算方式" class="headerlink" title="神经网络计算方式"></a>神经网络计算方式</h4><p>  神经网络实际是一种<strong>图</strong>，用节点表示数值，用边表示计算方式。</p>
-<p>  <img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210731075730371.png" alt="image-20210731075730371"></p>
-<p>  ​        通常将第0层称为<strong>输入层（input layer）</strong>，用于输入自变量的各个参数；最后一层称为<strong>输出层（output layer）</strong>，剩下的的中间层统称为<strong>隐藏层（hidden layer）</strong>。如图所示，一个神经元会与前一层的所有神经元链接，这样的层也叫做<strong>全连接层</strong>，除此之外，还存在<strong>卷积层</strong>，<strong>池化层</strong>等等类型，将在后续进行介绍。</p>
-<p>  ​        使用一定的计算方式，从第1层开始逐层计算神经元的值，一直向前计算到输出层就可以得到这个神经网络的输出了。这个过程也称为<strong>前向传播（forward propagation）</strong>。</p>
+<p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png" alt="image-20210723112857334" style="zoom:67%;"></p>
+<ul>
+<li>通过给定的一系列<strong>样本点</strong>$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的<strong>预测值</strong>$\hat{y}$尽可能地接近<strong>真实值</strong>$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\hat{y}$值。这便是一种<strong>机器学习</strong>了。直线的斜率、截距便是这个机器学习模型的<strong>参数</strong>。计算直线的斜率、截距的过程便是<strong>学习</strong>的过程。</li>
+</ul>
+<h4 id="从一元线性回归到神经网络"><a href="#从一元线性回归到神经网络" class="headerlink" title="从一元线性回归到神经网络"></a>从一元线性回归到神经网络</h4><ul>
+<li><p><strong>稍微</strong>的将这一原理拓展一下：以自动驾驶中识别路标这一算法为例，这一模型接收一个自变量$x$（x是图片），输出一个预测值$\hat{y}$（y可以是路标的种类，比如用0代表”不是路标“，1代表”禁止停车“等），计算的过程中需要用到许多参数。在创建这一模型时，我们需要有大量的样本点$(x, y)$让这个模型来学习，不过这里的$x$是一张张图片，而$y$则是路标的种类。通过大量的样本点和特定的算法，我们可以计算出模型中的参数，让模型的预测结果$\hat{y}$尽可能地逼近真实值$y$，这一计算的过程就是该模型<strong>学习</strong>的过程，或者说<strong>训练</strong>的过程。学习结束后，我们就可以实际运用这一模型了。</p>
 </li>
-<li><h4 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h4><p>  我们这里先只介绍<strong>全连接层</strong>的计算方式。</p>
-<p>  以第0层和第1层中的一部分为例：</p>
-<p>  <img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210729102824005.png" alt="image-20210729102824005"></p>
-<p>  $z^{(1)}_0=w^{(1)}_0a^{(0)}_0+w^{(1)}_1a^{(0)}_1+w^{(1)}_2a^{(0)}_2+w^{(1)}_3a^{(0)}_3+w^{(1)}_4a^{(0)}_4+b^{(1)}$</p>
-<p>  $z^{(1)}<em>0=\sum</em>{i}w^{(1)}_ia^{(0)}_i+b^{(1)}_0$</p>
-<p>  $a^{(1)}_0=g(z^{(1)}_0)$，$g$是<strong>激活函数（$activation$）</strong>，在后面会提到。</p>
-<p>  $w$叫做<strong>权重值（$weight$)</strong>，$b$叫做<strong>偏置（$bias$）</strong>。$w$和$b$是我们这一层的<strong>参数</strong>，需要通过算法将它们调整为合适的值。</p>
+<li><p>对比一下这两段话，就可以看出一个复杂的机器学习模型实际上和一元线性回归的原理是相同的。</p>
 </li>
-<li><h4 id="上标、下标约定："><a href="#上标、下标约定：" class="headerlink" title="上标、下标约定："></a>上标、下标约定：</h4><p>  神经网络往往分成许多层，$a^{(t)}<em>{i}$是指第$t$层的第$i$个节点，$w^{(t)}</em>{i}$是指第$t-1$层到第$t$层的权重值中的第$i$个，$b^i$是指第$t-1$层到第$t$层的偏置。</p>
+<li><p>因为一元线性回归过于简单，所以可以直接用公式计算出所需要的参数。但是实际的机器学习问题需要有数以万计的参数，没办法直接通过公式直接计算，只能用<strong>梯度下降算法</strong>不断<strong>逼近理想值</strong>。</p>
+</li>
+<li><p>关于梯度下降的介绍会在后续博文中介绍。</p>
 </li>
 </ul>
-<p>关于梯度下降算法可以去看以下视频，讲解非常清晰。这一系列视频包括了整个神经网络的原理，十分生动形象。非常推荐去看这一系列视频。</p>
+<h3 id="2-神经网络的计算过程"><a href="#2-神经网络的计算过程" class="headerlink" title="2. 神经网络的计算过程"></a>2. 神经网络的计算过程</h3><ul>
+<li><h4 id="神经网络计算方式"><a href="#神经网络计算方式" class="headerlink" title="神经网络计算方式"></a>神经网络计算方式</h4><p>  神经网络实际是一种<strong>图</strong>，用节点表示数值，用边表示计算方式。</p>
+<p>  <img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210731075730371.png" alt="image-20210731075730371"></p>
+<ul>
+<li><p>通常将第0层称为<strong>输入层（input layer）</strong>，用于输入自变量的各个参数；最后一层称为<strong>输出层（output layer）</strong>，剩下的的中间层统称为<strong>隐藏层（hidden layer）</strong>。如图所示，一个神经元会与前一层的所有神经元链接，这样的层也叫做<strong>全连接层</strong>，除此之外，还存在<strong>卷积层</strong>，<strong>池化层</strong>等等类型，将在后续进行介绍。</p>
+</li>
+<li><p>使用一定的计算方式，从第1层开始逐层计算神经元的值，一直向前计算到输出层就可以得到这个神经网络的输出了。这个过程也称为<strong>前向传播（forward propagation）</strong>。</p>
+</li>
+</ul>
+</li>
+<li><h4 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h4><ul>
+<li><p>我们这里先只介绍<strong>全连接层</strong>的计算方式。</p>
+</li>
+<li><p>以第0层和第1层中的一部分为例：</p>
+<p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210729102824005.png" alt="image-20210729102824005"></p>
+</li>
+<li><p>$z^{(1)}_0=w^{(1)}_0a^{(0)}_0+w^{(1)}_1a^{(0)}_1+w^{(1)}_2a^{(0)}_2+w^{(1)}_3a^{(0)}_3+w^{(1)}_4a^{(0)}_4+b^{(1)}$</p>
+</li>
+<li><p>$z^{(1)}_0=\sum_iw^{(1)}_ia^{(0)}_i+b^{(1)}_0$</p>
+</li>
+<li><p>$a^{(1)}_0=g(z^{(1)}_0)$，$g$是<strong>激活函数（$activation$）</strong>，在后面会提到。</p>
+</li>
+<li><p>$w$叫做<strong>权重值（$weight$)</strong>，$b$叫做<strong>偏置（$bias$）</strong>。$w$和$b$是我们这一层的<strong>参数</strong>，需要通过算法将它们调整为合适的值。</p>
+</li>
+</ul>
+</li>
+<li><h4 id="上标、下标约定："><a href="#上标、下标约定：" class="headerlink" title="上标、下标约定："></a>上标、下标约定：</h4><ul>
+<li>神经网络往往分成许多层，$a^{(t)}_i$是指第$t$层的第$i$个节点，$w^{(t)}_i$是指第$t-1$层到第$t$层的权重值中的第$i$个，$b^i$是指第$t-1$层到第$t$层的偏置。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>关于梯度下降算法可以去看以下视频，讲解非常清晰。这一系列视频包括了整个神经网络的原理，十分生动形象。非常推荐去看这一系列视频。</li>
+</ul>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bx411M7Zx/?spm_id_from=333.788.recommend_more_video.0">https://www.bilibili.com/video/BV1bx411M7Zx/?spm_id_from=333.788.recommend_more_video.0</a></p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/23/test-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Beity Luo">
-      <meta itemprop="description" content="\托尔/\托尔/\托尔/\托尔/\托尔/">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Beity的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/23/test-blog/" class="post-title-link" itemprop="url">test_blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-23 11:07:39 / 修改时间：11:10:37" itemprop="dateCreated datePublished" datetime="2021-07-23T11:07:39+08:00">2021-07-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="数学公式测试"><a href="#数学公式测试" class="headerlink" title="数学公式测试"></a>数学公式测试</h2><p>$x*x=x**2$</p>
-<p>$4\div2=2$</p>
 
       
     </div>
@@ -359,72 +323,6 @@
 <li>现在主要计划编写的方向是神经网络与操作系统基本原理</li>
 <li>不定期更新</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/20/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Beity Luo">
-      <meta itemprop="description" content="\托尔/\托尔/\托尔/\托尔/\托尔/">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Beity的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-20 19:49:01" itemprop="dateCreated datePublished" datetime="2021-07-20T19:49:01+08:00">2021-07-20</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
@@ -508,7 +406,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -546,7 +444,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共1.2k字</span>
+  <span class="post-count">博客全站共1.1k字</span>
 </div>
 
         
