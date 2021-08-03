@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="Beity的博客">
 <meta property="og:description" content="神经网络：基本原理此篇写给对神经网络感兴趣，但是还没入门的同学们。 1. 最简单的学习我们首先来看一个我们最熟悉的“机器学习“——一元线性回归  通过给定的一系列样本点$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的预测值$\hat{y}$尽可能地接近真实值$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\ha">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/神经网络-神经网络的统计学基本原理/image-20210723112857334.png">
-<meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/神经网络-神经网络的统计学基本原理/image-20210731075730371.png">
-<meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/神经网络-神经网络的统计学基本原理/image-20210729102824005.png">
+<meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png">
+<meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210731075730371.png">
+<meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210729102824005.png">
 <meta property="article:published_time" content="2021-07-23T03:22:21.000Z">
 <meta property="article:modified_time" content="2021-07-31T09:16:54.505Z">
 <meta property="article:author" content="Beity Luo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/神经网络-神经网络的统计学基本原理/image-20210723112857334.png">
+<meta name="twitter:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png">
 
 <link rel="canonical" href="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/">
 
@@ -215,7 +215,7 @@
       
         <h1 id="神经网络：基本原理"><a href="#神经网络：基本原理" class="headerlink" title="神经网络：基本原理"></a>神经网络：基本原理</h1><p>此篇写给对神经网络感兴趣，但是还没入门的同学们。</p>
 <h3 id="1-最简单的学习"><a href="#1-最简单的学习" class="headerlink" title="1. 最简单的学习"></a>1. 最简单的学习</h3><p>我们首先来看一个我们最熟悉的“机器学习“——<strong>一元线性回归</strong></p>
-<p><img src="神经网络-神经网络的统计学基本原理/image-20210723112857334.png" alt="image-20210723112857334" style="zoom:67%;" /></p>
+<p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png" alt="image-20210723112857334" style="zoom:67%;"></p>
 <p>通过给定的一系列<strong>样本点</strong>$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的<strong>预测值</strong>$\hat{y}$尽可能地接近<strong>真实值</strong>$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\hat{y}$值。这便是一种<strong>机器学习</strong>了。直线的斜率、截距便是这个机器学习模型的<strong>参数</strong>。计算直线的斜率、截距的过程便是<strong>学习</strong>的过程。</p>
 <h4 id="从一元线性回归到神经网络"><a href="#从一元线性回归到神经网络" class="headerlink" title="从一元线性回归到神经网络"></a>从一元线性回归到神经网络</h4><p><strong>稍微</strong>的将这一原理拓展一下：以自动驾驶中识别路标这一算法为例，这一模型接收一个自变量$x$（x是图片），输出一个预测值$\hat{y}$（y可以是路标的种类，比如用0代表”不是路标“，1代表”禁止停车“等），计算的过程中需要用到许多参数。在创建这一模型时，我们需要有大量的样本点$(x, y)$让这个模型来学习，不过这里的$x$是一张张地图片，而$y$则是路标的种类。通过大量的样本点和特定的算法，我们可以计算出模型中的参数，让模型的预测结果$\hat{y}$尽可能地逼近真实值$y$，这一计算的过程就是该模型<strong>学习</strong>的过程，或者说<strong>训练</strong>的过程。学习结束后，我们就可以实际运用这一模型了。</p>
 <p>对比一下这两段话，就可以看出一个复杂的机器学习模型实际上和一元线性回归的原理是相同的。</p>
@@ -223,13 +223,13 @@
 <p>关于梯度下降的介绍会在后续博文中介绍。</p>
 <h3 id="2-神经网络的计算过程"><a href="#2-神经网络的计算过程" class="headerlink" title="2. 神经网络的计算过程"></a>2. 神经网络的计算过程</h3><ul>
 <li><h4 id="神经网络计算方式"><a href="#神经网络计算方式" class="headerlink" title="神经网络计算方式"></a>神经网络计算方式</h4><p>  神经网络实际是一种<strong>图</strong>，用节点表示数值，用边表示计算方式。</p>
-<p>  <img src="神经网络-神经网络的统计学基本原理/image-20210731075730371.png" alt="image-20210731075730371"></p>
+<p>  <img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210731075730371.png" alt="image-20210731075730371"></p>
 <p>  ​        通常将第0层称为<strong>输入层（input layer）</strong>，用于输入自变量的各个参数；最后一层称为<strong>输出层（output layer）</strong>，剩下的的中间层统称为<strong>隐藏层（hidden layer）</strong>。如图所示，一个神经元会与前一层的所有神经元链接，这样的层也叫做<strong>全连接层</strong>，除此之外，还存在<strong>卷积层</strong>，<strong>池化层</strong>等等类型，将在后续进行介绍。</p>
 <p>  ​        使用一定的计算方式，从第1层开始逐层计算神经元的值，一直向前计算到输出层就可以得到这个神经网络的输出了。这个过程也称为<strong>前向传播（forward propagation）</strong>。</p>
 </li>
 <li><h4 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h4><p>  我们这里先只介绍<strong>全连接层</strong>的计算方式。</p>
 <p>  以第0层和第1层中的一部分为例：</p>
-<p>  <img src="神经网络-神经网络的统计学基本原理/image-20210729102824005.png" alt="image-20210729102824005"></p>
+<p>  <img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%AD%A6%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210729102824005.png" alt="image-20210729102824005"></p>
 <p>  $z^{(1)}_0=w^{(1)}_0a^{(0)}_0+w^{(1)}_1a^{(0)}_1+w^{(1)}_2a^{(0)}_2+w^{(1)}_3a^{(0)}_3+w^{(1)}_4a^{(0)}_4+b^{(1)}$</p>
 <p>  $z^{(1)}<em>0=\sum</em>{i}w^{(1)}_ia^{(0)}_i+b^{(1)}_0$</p>
 <p>  $a^{(1)}_0=g(z^{(1)}_0)$，$g$是<strong>激活函数（$activation$）</strong>，在后面会提到。</p>
