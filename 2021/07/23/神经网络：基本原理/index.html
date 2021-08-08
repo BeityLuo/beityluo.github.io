@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="此篇写给对神经网络感兴趣，但是还没入门的同学们。 1. 最简单的学习我们首先来看一个我们最熟悉的“机器学习“——一元线性回归   通过给定的一系列样本点$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的预测值$\hat{y}$尽可能地接近真实值$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\hat{y}$值。这">
+  <meta name="description" content="此篇写给对神经网络感兴趣，但是还没入门的同学们。 从最简单的一元线性回归开始，延伸到神经网络的基本原理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经网络：基本原理">
 <meta property="og:url" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Beity的博客">
-<meta property="og:description" content="此篇写给对神经网络感兴趣，但是还没入门的同学们。 1. 最简单的学习我们首先来看一个我们最熟悉的“机器学习“——一元线性回归   通过给定的一系列样本点$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的预测值$\hat{y}$尽可能地接近真实值$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\hat{y}$值。这">
+<meta property="og:description" content="此篇写给对神经网络感兴趣，但是还没入门的同学们。 从最简单的一元线性回归开始，延伸到神经网络的基本原理。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png">
 <meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210731075730371.png">
 <meta property="og:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210729102824005.png">
 <meta property="article:published_time" content="2021-07-23T03:22:21.000Z">
-<meta property="article:modified_time" content="2021-08-05T10:26:44.512Z">
+<meta property="article:modified_time" content="2021-08-08T02:57:32.060Z">
 <meta property="article:author" content="Beity Luo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png">
@@ -174,7 +174,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="Beity Luo">
-      <meta itemprop="description" content="\托尔/\托尔/\托尔/\托尔/\托尔/">
+      <meta itemprop="description" content="♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -199,8 +199,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-05 18:26:44" itemprop="dateModified" datetime="2021-08-05T18:26:44+08:00">2021-08-05</time>
+                <time title="修改时间：2021-08-08 10:57:32" itemprop="dateModified" datetime="2021-08-08T10:57:32+08:00">2021-08-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">神经网络</span></a>
+                </span>
+            </span>
 
           
 
@@ -214,6 +223,8 @@
 
       
         <p>此篇写给对神经网络感兴趣，但是还没入门的同学们。</p>
+<p>从最简单的一元线性回归开始，延伸到神经网络的基本原理。</p>
+<span id="more"></span>
 <h3 id="1-最简单的学习"><a href="#1-最简单的学习" class="headerlink" title="1. 最简单的学习"></a>1. 最简单的学习</h3><p>我们首先来看一个我们最熟悉的“机器学习“——<strong>一元线性回归</strong></p>
 <p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png" alt="image-20210723112857334" style="zoom:67%;"></p>
 <ul>
@@ -270,7 +281,7 @@
 <li><p>下面这篇博文介绍了用神经网络解决“手写数字识别”问题的过程，需要读完这一系列博文后才能完全看懂，但是感兴趣的也可以提前看一下👇</p>
 </li>
 <li><blockquote>
-<p>暂时没写  </p>
+<p><a target="_blank" rel="noopener" href="http://beityluo.space/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/">http://beityluo.space/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/</a>  </p>
 </blockquote>
 </li>
 </ul>
@@ -288,10 +299,7 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/07/23/about-me/" rel="prev" title="about me">
-      <i class="fa fa-chevron-left"></i> about me
-    </a></div>
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
     <a href="/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/" rel="next" title="神经网络：手写数字识别">
       神经网络：手写数字识别 <i class="fa fa-chevron-right"></i>
@@ -363,19 +371,33 @@
     <img class="site-author-image" itemprop="image" alt="Beity Luo"
       src="/images/avatar.png">
   <p class="site-author-name" itemprop="name">Beity Luo</p>
-  <div class="site-description" itemprop="description">\托尔/\托尔/\托尔/\托尔/\托尔/</div>
+  <div class="site-description" itemprop="description">♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BeityLuo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BeityLuo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/beityluo@163.com" title="E-Mail → beityluo@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
@@ -440,6 +462,8 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   

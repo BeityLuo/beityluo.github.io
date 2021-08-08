@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="\托尔&#x2F;\托尔&#x2F;\托尔&#x2F;\托尔&#x2F;\托尔&#x2F;">
+  <meta name="description" content="♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Beity的博客">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Beity的博客">
-<meta property="og:description" content="\托尔&#x2F;\托尔&#x2F;\托尔&#x2F;\托尔&#x2F;\托尔&#x2F;">
+<meta property="og:description" content="♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Beity Luo">
 <meta name="twitter:card" content="summary">
@@ -167,7 +167,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="Beity Luo">
-      <meta itemprop="description" content="\托尔/\托尔/\托尔/\托尔/\托尔/">
+      <meta itemprop="description" content="♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -193,8 +193,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-07 18:53:56" itemprop="dateModified" datetime="2021-08-07T18:53:56+08:00">2021-08-07</time>
+                <time title="修改时间：2021-08-08 10:58:49" itemprop="dateModified" datetime="2021-08-08T10:58:49+08:00">2021-08-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">神经网络</span></a>
+                </span>
+            </span>
 
           
 
@@ -208,61 +217,21 @@
 
       
           <ul>
-<li>本篇博文介绍了利用<code>numpy</code>库，搭建一个简单的神经网络实现手写数字识别问题</li>
-<li>使用的数据库是大名鼎鼎的<code>MINST</code>，这个库的图片以256级灰度图存储，分辨率为<code>28*28</code>，如下图</li>
+<li><p>本篇博文介绍了利用<code>numpy</code>库，搭建一个简单的神经网络实现手写数字识别问题</p>
+</li>
+<li><p>使用的数据库是大名鼎鼎的<code>MINST</code>，这个库的图片以256级灰度图存储，分辨率为<code>28*28</code>，如下图</p>
+</li>
 <li><p><img src="/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/image-20210805183315982.png" alt="image-20210805183315982" style="zoom:67%;"></p>
 </li>
-<li><p><strong>训练集</strong>由$60000$张图片组成，<strong>测试集</strong>由$10000$张图片组成</p>
-</li>
-</ul>
-<h3 id="1-神经网络结构介绍"><a href="#1-神经网络结构介绍" class="headerlink" title="1. 神经网络结构介绍"></a>1. 神经网络结构介绍</h3><ul>
-<li>借鉴$3blue1brown$的结构，输入层为$28<em>28=784$个神经元，中间层为两层$16$个神经元的隐藏层，输出层为$10$个神经元。这一结构并不是必要的，比如将$16$改成$20$，或者改成一层$20$一层$16$都是可以的。只要保证**参数足够多、深度足够深</em>就能够实现预测。</li>
-<li><strong>期望值</strong>：如果数字为$5$，则期望输出层输出${0,0,0,0,0,1,0,0,0,0,}$</li>
-<li><strong>预测值</strong>：计算时，将所有的像素值按顺序输入到输入层，并将输出层中值最大的神经元的<strong>序号</strong>作为预测输出</li>
-<li><img src="/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/image-20210806065421186.png" alt="image-20210806065421186" style="zoom:67%;"></li>
-</ul>
-<h3 id="2-激活函数选择："><a href="#2-激活函数选择：" class="headerlink" title="2. 激活函数选择："></a>2. 激活函数选择：</h3><ul>
-<li>最后一层选择$Sigmoid$函数作为激活函数，前两层选择$Relu$函数作为激活函数。</li>
-<li>其实可以都用$Sigmoid$或者都用$Relu$，但是训练速度和准确性会稍微差一些。因为$Sigmoid$是非线性函数，能够为神经网络带来更多非线性特征，但是容易出现<strong>梯度消失</strong>的问题，前向反向传播计算速度也慢，训练较慢；$Relu$接近于线性函数，虽然容易降低神经网络的准确度，却不容易出现<strong>梯度消失</strong>问题，训练速度较快。</li>
-</ul>
-<h3 id="3-参数初始化"><a href="#3-参数初始化" class="headerlink" title="3.参数初始化"></a>3.参数初始化</h3><ul>
-<li><p>各个全连接层的$w$和$b$不能简单采取<strong>标准正态分布</strong>进行初始化，这会<strong>导致梯度消失</strong>问题。需要再根据该层的<strong>输出维度数</strong>$n^{(l-1)}$进行调整。</p>
-</li>
-<li><p>具体的，根据该层的激活函数不同：</p>
-<ul>
-<li>$Relu$：将标准正态分布得到的随机值再<strong>乘以</strong>$\frac{2}{n^{(l-1)}}$</li>
-<li><p>$Sigmoid$：将标准正态分布得到的随机值再<strong>乘以</strong>$\frac{1}{n^{(l-1)}}$</p>
-</li>
-<li><p>$Tanh$：将标准正态分布得到的随机值再<strong>乘以</strong>$\frac{1}{n^{(l-1)}}$</p>
-</li>
-</ul>
-</li>
-<li><p>此部分理论见<em>吴恩达深度学习<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1FT4y1E74V?p=57">https://www.bilibili.com/video/BV1FT4y1E74V?p=57</a></em></p>
-</li>
-</ul>
-<h3 id="4-损失函数选择："><a href="#4-损失函数选择：" class="headerlink" title="4. 损失函数选择："></a>4. 损失函数选择：</h3><ul>
-<li>这一模型较为简单，其实选啥都行。</li>
-<li>我这里选的是$均方损失函数$也就是$MSE$，公式为$(\hat{y}-y)^2$</li>
-</ul>
-<h3 id="5-梯度下降优化算法"><a href="#5-梯度下降优化算法" class="headerlink" title="5. 梯度下降优化算法"></a>5. 梯度下降优化算法</h3><ul>
-<li>实际不需要<strong>优化</strong>也可以有不错的效果，使用最简单的<strong>随机梯度下降</strong>即可</li>
-</ul>
-<h3 id="6-batch-size选择"><a href="#6-batch-size选择" class="headerlink" title="6. batch_size选择"></a>6. batch_size选择</h3><ul>
-<li>最开始将<code>batch_size</code>设置为$100$，但是这样训练速度较慢，通过不断实验，发现设置为$20$的效果最好</li>
-<li>另外，在训练每一轮时，可以将所有样本重新随机排列，保证训练的随机性，这一行为也叫做<strong>洗牌shuffle</strong>。但经过实验，是否洗牌的影响不是很大</li>
-</ul>
-<h3 id="7-训练效果"><a href="#7-训练效果" class="headerlink" title="7. 训练效果"></a>7. 训练效果</h3><ul>
-<li>前150轮的<strong>测试集Loss值和正确率</strong>图👇</li>
-<li><p><img src="/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/image-20210807184834697.png" alt="image-20210807184834697" style="zoom:50%;"></p>
-</li>
-<li><p>这一曲线和同样的结构使用<code>pyTorch</code>的训练速度、准确率大致相同，都能在30轮时达到$93\%$的准确率，最终达到$95\%$左右准确率（我自己编写的代码甚至比<code>pyTorch</code>还要高上0.5%嘿嘿嘿 \(￣▽￣)/）</p>
-</li>
-</ul>
-<h3 id="8-其他"><a href="#8-其他" class="headerlink" title="8. 其他"></a>8. 其他</h3><ul>
-<li>具体的代码实现还有更多想说的，就以后再单独放一篇文章</li>
-<li>像如何隐藏层数、隐藏层维度数、激活函数选择、参数初始化方法、损失函数选择、batch_size选择问题都属于是<strong>超参数（Hyperparameter）</strong>，如何选择种种超参数也是机器学习中的一大难点。这里我并没有使用<strong>科学的办法</strong>选择这些超参数，而是简单选择了一下。想要更好的训练效果，需要单独编写程序进行比较、选择。</li>
-</ul>
-
+<li><p><strong>训练集</strong>由$60000$张图片组成，<strong>测试集</strong>由$10000$张图片组成</p></li></ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/05/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -286,7 +255,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
       <meta itemprop="name" content="Beity Luo">
-      <meta itemprop="description" content="\托尔/\托尔/\托尔/\托尔/\托尔/">
+      <meta itemprop="description" content="♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -312,8 +281,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-05 18:26:44" itemprop="dateModified" datetime="2021-08-05T18:26:44+08:00">2021-08-05</time>
+                <time title="修改时间：2021-08-08 10:57:32" itemprop="dateModified" datetime="2021-08-08T10:57:32+08:00">2021-08-08</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">神经网络</span></a>
+                </span>
+            </span>
 
           
 
@@ -327,136 +305,15 @@
 
       
           <p>此篇写给对神经网络感兴趣，但是还没入门的同学们。</p>
-<h3 id="1-最简单的学习"><a href="#1-最简单的学习" class="headerlink" title="1. 最简单的学习"></a>1. 最简单的学习</h3><p>我们首先来看一个我们最熟悉的“机器学习“——<strong>一元线性回归</strong></p>
-<p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210723112857334.png" alt="image-20210723112857334" style="zoom:67%;"></p>
-<ul>
-<li>通过给定的一系列<strong>样本点</strong>$(x, y)$，我们计算出一条直线来拟合这些点，使给定的自变量$x$的<strong>预测值</strong>$\hat{y}$尽可能地接近<strong>真实值</strong>$y$，这一直线需要通过两个参数—截距和斜率确定下来。当有新的自变量$x$时，我们就可以根据这条直线预测出一个$\hat{y}$值。这便是一种<strong>机器学习</strong>了。直线的斜率、截距便是这个机器学习模型的<strong>参数</strong>。计算直线的斜率、截距的过程便是<strong>学习</strong>的过程。</li>
-</ul>
-<h4 id="从一元线性回归到神经网络"><a href="#从一元线性回归到神经网络" class="headerlink" title="从一元线性回归到神经网络"></a>从一元线性回归到神经网络</h4><ul>
-<li><p><strong>稍微</strong>的将这一原理拓展一下：以自动驾驶中识别路标这一算法为例，这一模型接收一个自变量$x$（x是图片），输出一个预测值$\hat{y}$（y可以是路标的种类，比如用0代表“不是路标”，1代表“禁止停车”等），计算的过程中需要用到许多参数。在创建这一模型时，我们需要有大量的样本点$(x, y)$让这个模型来学习，不过这里的$x$是一张张图片，而$y$则是路标的种类。通过大量的样本点和特定的算法，我们可以计算出模型中的参数，让模型的预测结果$\hat{y}$尽可能地逼近真实值$y$，这一计算的过程就是该模型<strong>学习</strong>的过程，或者说<strong>训练</strong>的过程。学习结束后，我们就可以实际运用这一模型了。</p>
-</li>
-<li><p>对比一下这两段话，就可以看出一个复杂的机器学习模型实际上和一元线性回归的原理是相同的。</p>
-</li>
-<li><p>因为一元线性回归过于简单，所以可以直接用公式计算出所需要的参数。但是实际的机器学习问题需要有数以万计的参数，没办法直接通过公式直接计算，只能用<strong>梯度下降算法</strong>不断<strong>逼近理想值</strong>。</p>
-</li>
-<li><p>关于梯度下降的介绍会在后续博文中介绍。</p>
-</li>
-</ul>
-<h3 id="2-神经网络的计算过程"><a href="#2-神经网络的计算过程" class="headerlink" title="2. 神经网络的计算过程"></a>2. 神经网络的计算过程</h3><ul>
-<li><h4 id="神经网络计算方式"><a href="#神经网络计算方式" class="headerlink" title="神经网络计算方式"></a>神经网络计算方式</h4><p>  神经网络实际是一种<strong>图</strong>，用节点表示数值，用边表示计算方式。</p>
-<p>  <img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210731075730371.png" alt="image-20210731075730371"></p>
-<ul>
-<li><p>通常将第0层称为<strong>输入层（input layer）</strong>，用于输入自变量的各个参数；最后一层称为<strong>输出层（output layer）</strong>，剩下的的中间层统称为<strong>隐藏层（hidden layer）</strong>。如图所示，一个神经元会与前一层的所有神经元链接，这样的层也叫做<strong>全连接层</strong>，除此之外，还存在<strong>卷积层</strong>，<strong>池化层</strong>等等类型，将在后续进行介绍。</p>
-</li>
-<li><p>使用一定的计算方式，从第1层开始逐层计算神经元的值，一直向前计算到输出层就可以得到这个神经网络的输出了。这个过程也称为<strong>前向传播（forward propagation）</strong>。</p>
-</li>
-</ul>
-</li>
-<li><h4 id="计算方式"><a href="#计算方式" class="headerlink" title="计算方式"></a>计算方式</h4><ul>
-<li><p>我们这里先只介绍<strong>全连接层</strong>的计算方式。</p>
-</li>
-<li><p>以第0层和第1层中的一部分为例：</p>
-<p><img src="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/image-20210729102824005.png" alt="image-20210729102824005"></p>
-</li>
-<li><p>$z^{(1)}_0=w^{(1)}_0a^{(0)}_0+w^{(1)}_1a^{(0)}_1+w^{(1)}_2a^{(0)}_2+w^{(1)}_3a^{(0)}_3+w^{(1)}_4a^{(0)}_4+b^{(1)}$</p>
-</li>
-<li><p>$z^{(1)}_0=\sum_iw^{(1)}_ia^{(0)}_i+b^{(1)}_0$</p>
-</li>
-<li><p>$a^{(1)}_0=g(z^{(1)}_0)$，$g$是<strong>激活函数（$activation$）</strong>，在后面会提到。</p>
-</li>
-<li><p>$w$叫做<strong>权重值（$weight$)</strong>，$b$叫做<strong>偏置（$bias$）</strong>。$w$和$b$是我们这一层的<strong>参数</strong>，需要通过算法将它们调整为合适的值。</p>
-</li>
-</ul>
-</li>
-<li><h4 id="上标、下标约定："><a href="#上标、下标约定：" class="headerlink" title="上标、下标约定："></a>上标、下标约定：</h4><ul>
-<li>神经网络往往分成许多层，$a^{(t)}_i$是指第$t$层的第$i$个节点，$w^{(t)}_i$是指第$t-1$层到第$t$层的权重值中的第$i$个，$b^i$是指第$t-1$层到第$t$层的偏置。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>关于梯度下降算法可以去看以下视频，讲解非常清晰。这一系列视频包括了整个神经网络的原理，十分生动形象。非常推荐去看这一系列视频。</li>
-</ul>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bx411M7Zx/?spm_id_from=333.788.recommend_more_video.0">https://www.bilibili.com/video/BV1bx411M7Zx/?spm_id_from=333.788.recommend_more_video.0</a></p>
-</blockquote>
-<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><ul>
-<li><p>下面这篇博文介绍了用神经网络解决“手写数字识别”问题的过程，需要读完这一系列博文后才能完全看懂，但是感兴趣的也可以提前看一下👇</p>
-</li>
-<li><blockquote>
-<p>暂时没写  </p>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/23/about-me/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Beity Luo">
-      <meta itemprop="description" content="\托尔/\托尔/\托尔/\托尔/\托尔/">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Beity的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/23/about-me/" class="post-title-link" itemprop="url">about me</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-23 10:23:43" itemprop="dateCreated datePublished" datetime="2021-07-23T10:23:43+08:00">2021-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-03 10:16:18" itemprop="dateModified" datetime="2021-08-03T10:16:18+08:00">2021-08-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h1><ul>
-<li>2019级计算机科学与技术专业本科生，将在本网站记录自己的学习历程</li>
-<li>现在主要计划编写的方向是神经网络与操作系统基本原理</li>
-<li>不定期更新</li>
-</ul>
-
+<p>从最简单的一元线性回归开始，延伸到神经网络的基本原理。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/07/23/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -532,19 +389,33 @@
     <img class="site-author-image" itemprop="image" alt="Beity Luo"
       src="/images/avatar.png">
   <p class="site-author-name" itemprop="name">Beity Luo</p>
-  <div class="site-description" itemprop="description">\托尔/\托尔/\托尔/\托尔/\托尔/</div>
+  <div class="site-description" itemprop="description">♥志摩凛♥托尔♥远坂凛♥凌波丽♥明日香♥泉此方♥</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/BeityLuo" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;BeityLuo" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/beityluo@163.com" title="E-Mail → beityluo@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
 
@@ -609,6 +480,8 @@
 <script src="/js/next-boot.js"></script>
 
 
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
 
 
   
