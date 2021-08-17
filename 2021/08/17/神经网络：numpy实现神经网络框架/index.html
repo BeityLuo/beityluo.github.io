@@ -28,7 +28,7 @@
 <meta property="og:description" content="本文用numpy从零搭建了一个类似于pytorch的深度学习框架 可以用于前面文章提到的MINST数据集的手写数字识别、也可以用于其他的方面  Github:   https:&#x2F;&#x2F;github.com&#x2F;BeityLuo&#x2F;Deeplearning-frame-from-scrach">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-17T02:27:34.000Z">
-<meta property="article:modified_time" content="2021-08-17T02:40:35.146Z">
+<meta property="article:modified_time" content="2021-08-17T02:48:11.848Z">
 <meta property="article:author" content="Beity Luo">
 <meta name="twitter:card" content="summary">
 
@@ -189,7 +189,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-08-17 10:27:34 / 修改时间：10:40:35" itemprop="dateCreated datePublished" datetime="2021-08-17T10:27:34+08:00">2021-08-17</time>
+              <time title="创建时间：2021-08-17 10:27:34 / 修改时间：10:48:11" itemprop="dateCreated datePublished" datetime="2021-08-17T10:27:34+08:00">2021-08-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -235,9 +235,26 @@
 <li>在框架上基本模仿<code>pytorch</code>，用以学习神经网络的基本算法，如前向传播、反向传播、各种层、各种激活函数</li>
 <li>采用面向对象的思想进行编程，思路较为清晰</li>
 <li>想要自己<strong>手写神经网络</strong>的同学们可以参考一下</li>
-<li>代码大体框架较为清晰，但不否认存在丑陋的部分，以及对于<code>`pytorch</code>的拙劣模仿</li>
+<li><p>代码大体框架较为清晰，但不否认存在丑陋的部分，以及对于<code>`pytorch</code>的拙劣模仿</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2></li>
+<li><h3 id="MINST-recognition"><a href="#MINST-recognition" class="headerlink" title="MINST_recognition:"></a><code>MINST_recognition</code>:</h3><ul>
+<li><p>手写数字识别，使用<code>MINST</code>数据集</p>
+</li>
+<li><p>训练30轮可以达到93%准确度，训练500轮左右达到95%准确度无法继续上升</p>
+</li>
+</ul>
+</li>
+<li><h3 id="RNN-sin-to-cos"><a href="#RNN-sin-to-cos" class="headerlink" title="RNN_sin_to_cos:"></a><code>RNN_sin_to_cos</code>:</h3><ul>
+<li><p>使用循环神经网络RNN，用$sin$的曲线预测$cos$的曲线</p>
+</li>
+<li><p>目前仍有bug，无法正常训练</p>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="框架介绍"><a href="#框架介绍" class="headerlink" title="框架介绍"></a>框架介绍</h2><ul>
+<li><p>与框架有关的代码都放在了<code>mtorch</code>文件夹中</p>
+</li>
 <li><h3 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h3><ul>
 <li><p>与<code>pytorch</code>相似，需要定义自己的神经网络、损失函数、梯度下降的优化算法等等</p>
 </li>
@@ -393,7 +410,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E5%8F%8A%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">神经网络框架使用方法及设计思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">框架介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C-define-neural-network"><span class="nav-number">2.</span> <span class="nav-text">定义网络 define neural network</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E5%8F%8A%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">神经网络框架使用方法及设计思想</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MINST-recognition"><span class="nav-number">1.1.1.</span> <span class="nav-text">MINST_recognition:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN-sin-to-cos"><span class="nav-number">1.1.2.</span> <span class="nav-text">RNN_sin_to_cos:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.</span> <span class="nav-text">框架介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C-define-neural-network"><span class="nav-number">2.</span> <span class="nav-text">定义网络 define neural network</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -461,7 +478,7 @@
   </div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共4.3k字</span>
+  <span class="post-count">博客全站共4.4k字</span>
 </div>
 
         
